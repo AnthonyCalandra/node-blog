@@ -1,0 +1,19 @@
+<div>{{errors}}</div>
+<form action="/create" method="post">
+  <label for="title">Title:</label>
+  <input type="text" name="title" value="{{title}}" /><br />
+  <label for="content">Content:</label>
+  <textarea name="content" rows="10" cols="50">{{content}}</textarea><br />
+  <label for="tags">Tags (seperate by commas):</label>
+  <input type="text" name="tags" value="{{tags}}" /><br />
+  <span>Category:</span><br />
+  {{#each categories}}
+    {{#if checked}}
+      <input type="radio" name="category" value="{{id}}" checked="checked" />{{name}}<br />
+    {{else}}
+      <input type="radio" name="category" value="{{id}}" />{{name}}<br />
+    {{/if}}
+  {{/each}}
+  <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+  <input type="submit" name="submit" value="Post" />
+</form>

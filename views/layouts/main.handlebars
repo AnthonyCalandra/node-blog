@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf8" />
+    <title>{{siteTitle}}</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  </head>
+  <body>
+    <header>
+      <div id="site_title"><a href="/">{{siteTitle}}</a></div>
+      <div id="site_desc">{{siteDesc}}</div>
+    </header>
+    {{{body}}}
+    <footer>
+      <div>
+        {{#if loggedIn}}
+          <a href="/logout?_csrf={{csrfToken}}">Logout</a> - <a href="/create">Create Post</a>
+          {{#if inPost}}
+          - <a href="/edit/{{postId}}">Edit Post</a>
+          {{/if}}
+        {{else}}
+          <a href="/login">Login</a>
+        {{/if}}
+         - <a href="/posts">Posts Index</a></div>
+      <div>Copyright 2015</div>
+    </footer>
+  </body>
+</html>

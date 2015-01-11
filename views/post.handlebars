@@ -1,0 +1,11 @@
+<article>
+  <h3>{{title}}</h3>
+  <p>{{{content}}}</p>
+  <div>Posted in: {{category}}</div>
+  Tags:
+  <ul>
+    {{#each tags}}
+      <li>{{.}}</li>
+    {{/each}}
+  </ul>
+</article>

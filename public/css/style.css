@@ -1,0 +1,13 @@
+#site_title {
+  font-weight: bold;
+  font-size: 18pt;
+}
+
+header {
+  margin-bottom: 25px;
+}
+
+footer {
+  margin-top: 25px;
+  text-align: center;
+}

@@ -1,0 +1,10 @@
+{{#each posts}}
+  {{@key}}
+  <hr />
+  {{#each .}}
+    <div><a href="/posts/{{urlTitle}}">{{title}}</a></div>
+  {{/each}}
+  <br />
+{{else}}
+  <p>No posts to display.</p>
+{{/each}}
