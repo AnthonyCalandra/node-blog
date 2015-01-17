@@ -16,7 +16,7 @@
         {{#if loggedIn}}
           <a href="/logout?_csrf={{csrfToken}}">Logout</a> - <a href="/create">Create Post</a>
           {{#if inPost}}
-          - <a href="/edit/{{postId}}">Edit Post</a>
+          - <a href="/edit/{{postId}}">Edit Post</a> - <a href="/delete/{{postId}}">Delete Post</a>
           {{/if}}
         {{else}}
           <a href="/login">Login</a>
