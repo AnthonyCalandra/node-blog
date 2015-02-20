@@ -6,6 +6,12 @@
   <textarea name="content" rows="10" cols="50">{{content}}</textarea><br />
   <label for="tags">Tags (seperate by commas):</label>
   <input type="text" name="tags" value="{{tags}}" /><br />
+  <label for="draft">Draft?</label>
+  {{#if draft}}
+    <input type="checkbox" name="draft" value="1" checked="checked" /><br />
+  {{else}}
+    <input type="checkbox" name="draft" value="1" /><br />
+  {{/if}}
   <span>Category:</span><br />
   {{#each categories}}
     {{#if checked}}

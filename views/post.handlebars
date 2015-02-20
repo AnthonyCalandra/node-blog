@@ -1,5 +1,9 @@
 <article>
-  <h3>{{title}}</h3>
+  {{#if draft}}
+    <h3>[DRAFT] {{title}}</h3>
+  {{else}}
+    <h3>{{title}}</h3>
+  {{/if}}
   <p>{{{content}}}</p>
   <div>Posted in: {{category}}</div>
   Tags:

@@ -2,7 +2,11 @@
   {{@key}}
   <hr />
   {{#each .}}
-    <div><a href="/posts/{{urlTitle}}">{{title}}</a></div>
+    {{#if draft}}
+      <div>[DRAFT] <a href="/posts/{{urlTitle}}">{{title}}</a></div>
+    {{else}}
+      <div><a href="/posts/{{urlTitle}}">{{title}}</a></div>
+    {{/if}}
   {{/each}}
   <br />
 {{else}}

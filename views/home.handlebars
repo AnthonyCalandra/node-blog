@@ -1,5 +1,9 @@
 {{#each posts}}
-  <div><a href="/posts/{{urlTitle}}">{{title}}</a></div>
+  {{#if draft}}
+    <div>[DRAFT] <a href="/posts/{{urlTitle}}">{{title}}</a></div>
+  {{else}}
+    <div><a href="/posts/{{urlTitle}}">{{title}}</a></div>
+  {{/if}}
   <p>{{content}}</p>
 {{else}}
   <p>No posts to display.</p>
