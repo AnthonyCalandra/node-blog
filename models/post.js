@@ -55,24 +55,35 @@ postSchema.pre('save', function(next) {
     entOpts = {
       named: true
     },
-    post = this;
+    post = this,
+    postId = post.id || 0;
 
   // The url title should only contain url-friendly chars.
   post.urlTitle = validator.whitelist(post.title, 'a-zA-Z0-9 ').replace(
     / /g, '-');
   mongoose.model('Post', postSchema).find({
-    urlTitle: new RegExp('^' + post.urlTitle + '(?:-\d+)?')
+    urlTitle: new RegExp('^' + post.title + '(?:-\d+)?')
   }).sort({
     'urlTitle': 'desc'
   }).exec(function(err, posts) {
-    if (posts.length === 1) {
+    if (posts.length === 1 && posts[0].id !== postId) {
       // Add on an extra number at the end to keep it unique.
       post.urlTitle += '-2';
     } else if (posts.length > 1) {
-      // Get the index of the latest post with the same url title and add 1.
-      var latestIndex = parseInt(posts[0].urlTitle[posts[0].urlTitle.length -
-        1], 10);
-      post.urlTitle += '-' + (latestIndex + 1);
+      // Find current post already in DB.
+      var currentPost = posts.filter(function(aPost) {
+        return aPost.id === postId;
+      });
+      // If the current post is not in the DB...
+      if (currentPost.length === 0) {
+        // Get the index of the latest post with the same url title and add 1.
+        var latestIndex = parseInt(posts[0].urlTitle[posts[0].urlTitle.length -
+          1], 10);
+        post.urlTitle += '-' + (latestIndex + 1);
+      } else {
+        // Or, use the original url title.
+        post.urlTitle = currentPost[0].urlTitle;
+      }
     }
 
     // Filter duplicate and empty tags.
