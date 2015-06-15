@@ -62,7 +62,7 @@ postSchema.pre('save', function(next) {
   post.urlTitle = validator.whitelist(post.title, 'a-zA-Z0-9 ').replace(
     / /g, '-');
   mongoose.model('Post', postSchema).find({
-    urlTitle: new RegExp('^' + post.title + '(?:-\d+)?')
+    urlTitle: new RegExp('^' + post.urlTitle + '(?:-\d+)?')
   }).sort({
     'urlTitle': 'desc'
   }).exec(function(err, posts) {
