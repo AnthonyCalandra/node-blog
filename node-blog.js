@@ -1,12 +1,13 @@
-var config = require('./config.js'),
-  express = require('express'),
-  expressHandlebars = require('express-handlebars'),
-  mongoose = require('mongoose'),
-  MongoSessionStore = require('session-mongoose')(require('connect')),
-  sessionStore = new MongoSessionStore({
-    url: config.mongoConnStr
-  }),
-  app = express();
+var config = require('./config.js');
+var http = require('http');
+var express = require('express');
+var expressHandlebars = require('express-handlebars');
+var mongoose = require('mongoose');
+var MongoSessionStore = require('session-mongoose')(require('connect'));
+var sessionStore = new MongoSessionStore({
+  url: config.mongoConnStr
+});
+var app = express();
 
 app.use(express.static(__dirname + '/public'));
 mongoose.connect(config.mongoConnStr, config.mongoOpts);
@@ -51,8 +52,17 @@ app.use(function(err, req, res, next) {
   res.type('text/plain').status(500).send('500 - Internal Server Error');
 });
 
-app.listen(app.get('port'), function() {
+if (config.enableHttps) {
+  var https = require('https');
+  https.createServer(serverOptions, app).listen(config.httpsPort, function() {
+     console.log('Express started in ' + app.get('env') +
+      ' mode on localhost:' + httpsPort);
+    console.log('Press Ctrl-C to terminate.');
+  });
+}
+
+http.createServer(app).listen(config.httpPort, function() {
   console.log('Express started in ' + app.get('env') +
-    ' mode on localhost:' + app.get('port'));
-  console.log('Press Ctrl-C to terminate.');
-});
+    ' mode on localhost:' + config.httpPort);
+   console.log('Press Ctrl-C to terminate.');
+ });

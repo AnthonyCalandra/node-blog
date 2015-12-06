@@ -34,5 +34,12 @@ module.exports = {
   },
 
   // Session config.
-  cookieSecret: ''
+  cookieSecret: '',
+  // Absolute path to private key (HTTPS).
+  key: '',
+  // Absolute path to certificate (HTTPS).
+  cert: '',
+  enableHttps: false,
+  httpsPort: 443,
+  httpPort: 80
 };
