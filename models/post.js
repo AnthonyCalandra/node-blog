@@ -59,7 +59,8 @@ postSchema.pre('save', function(next) {
     postId = post.id || 0;
 
   // The url title should only contain url-friendly chars.
-  post.urlTitle = validator.whitelist(post.title, 'a-zA-Z0-9 ').replace(
+  post.urlTitle = post.title.toLowerCase();
+  post.urlTitle = validator.whitelist(post.urlTitle, 'a-z0-9 ').replace(
     / /g, '-');
   mongoose.model('Post', postSchema).find({
     urlTitle: new RegExp('^' + post.urlTitle + '(?:-\d+)?')
